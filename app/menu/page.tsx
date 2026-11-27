@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { menuItem } from "@/lib/schema";
 import Link from "next/link";
+import LogoutButton from "@/components/LogoutButton";
 
 export default async function MenuPage() {
   const items = await db.select().from(menuItem);
@@ -10,6 +11,9 @@ export default async function MenuPage() {
       <h1>Our Menu</h1>
       <p>Guest can view menu. Login to order.</p>
       <Link href="/login">Login to Order</Link>
+      <LogoutButton />
+<Link href="/cart">Cart</Link>
+<Link href="/orders">My Orders</Link>
       <br /><br />
 
       {items.length === 0 ? (
