@@ -1,8 +1,13 @@
 import { db } from "@/lib/db";
 import { menuItem, order } from "@/lib/schema";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export default async function AdminPage() {
+  const session = await auth.api.getSession({ headers: await headers() });
+if (!session) redirect("/login");
   const items = await db.select().from(menuItem);
   const orders = await db.select().from(order);
 
